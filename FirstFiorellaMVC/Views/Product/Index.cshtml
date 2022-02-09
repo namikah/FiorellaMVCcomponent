@@ -7,11 +7,9 @@
     <div class="container">
             <input type="hidden" value="@ViewBag.ProductsCount" id="productsCount"/>
         <div class="row" id="productRow">
-            <partial name="_ProductPartial"/>
-             @*@Html.Partial("_ProductPartial")*@
-        </div>
-        <div class="row justify-content-center">
-            <button class="btn btn-primary" id="loadMore">Load more...</button>
+                @await Component.InvokeAsync("Product")
+                @*<partial name="_ProductPartial"/>*@
+                @*@Html.Partial("_ProductPartial")*@
         </div>
     </div>
 </section>

@@ -4,6 +4,7 @@ using FirstFiorellaMVC.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace FirstFiorellaMVC.Controllers
 {
@@ -38,6 +39,21 @@ namespace FirstFiorellaMVC.Controllers
                 Socials = _appDbContext.Socials.ToList(),
                 Campaigns = _appDbContext.Campaigns.ToList(),
             });
+        }
+
+        public async Task<IActionResult> Search(string searchedProduct)
+        {
+
+            if (string.IsNullOrEmpty(searchedProduct))
+            {
+                return NoContent();
+            }
+
+            var products = await _appDbContext.Products.Include(x=>x.Images)
+                .Where(x => x.Name.ToLower().Contains(searchedProduct.ToLower()))
+                .ToListAsync();
+
+            return PartialView("_SearchProductPartial", products);
         }
     }
 }

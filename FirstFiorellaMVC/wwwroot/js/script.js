@@ -1,5 +1,21 @@
 $(document).ready(function () {
 
+    var searchedProduct;
+    $(document).on('keyup', '#input-search', function () {
+        searchedProduct = $(this).val();
+
+        $("#searchedProducts li").slice(1).remove();
+
+        $.ajax({
+            type: "GET",
+            url: "/Home/Search?searchedProduct=" + searchedProduct,
+            success: function (res) {
+
+                $("#searchedProducts").append(res);
+            }
+        });
+    });
+
     var skip = 8;
     $(window).scroll(function () {
         var scroll = $(window).scrollTop();
