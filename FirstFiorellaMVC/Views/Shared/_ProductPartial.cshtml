@@ -5,9 +5,9 @@
     <div class="col-sm-6 col-md-4 col-lg-3 mt-3">
         <div class="product-item text-center" data-id="@item.Category.Name.ToLower()">
             <div class="img">
-                <a href="">
-                    <img src="~/img/@item.Images.Find(x=>x.ProductId == item.Id)?.Name" class="img-fluid" alt="">
-                </a>
+               <a asp-controller="product" asp-action="detail" asp-route-id="@item.Id">
+                    <img src="~/img/@item.Images.Find(p=>p.ProductId == item.Id && p.IsMain == true)?.Name" class="img-fluid" alt="">
+               </a>
             </div>
             <div class="title mt-3">
                 <h6>@item.Name</h6>
